@@ -10,7 +10,7 @@ use Pbweb\Mimic\Model\Action;
  *
  * @copyright 2015 PB Web Media B.V.
  */
-class MimicActionHandler
+abstract class MimicActionHandler
 {
     /** @var EnqueuedActionCollection|null */
     private $queue;
@@ -89,7 +89,7 @@ class MimicActionHandler
      * @param array  $argumentList
      *
      * @return mixed
-     * @throws UnexpectedActionException
+     * @throws UnexpectedActionException|mixed
      */
     final protected function handleAction($method, array $argumentList = [])
     {
