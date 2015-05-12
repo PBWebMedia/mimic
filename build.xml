@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mimic" basedir="." default="build:main">
+    <!-- Properties -->
+    <property name="dir.src" value="${project.basedir}/src" />
+    <property name="dir.build" value="${project.basedir}/build" />
+    <property name="dir.build.codebrowser" value="${dir.build}/code-browser" />
+    <property name="dir.build.coverage" value="${dir.build}/coverage" />
+    <property name="dir.docs" value="${dir.build}/docs" />
+    <property name="dir.docs.doxygen" value="${dir.docs}/doxygen" />
+    <property name="dir.reports" value="${dir.build}/logs" />
+    <property name="dir.reports.pdepend" value="${dir.reports}/pdepend" />
+
+    <!-- Filesets -->
+    <fileset id="sourcecode" dir="${dir.src}">
+        <include name="**/*.php" />
+        <exclude name="bin/" />
+        <exclude name="build/" />
+        <exclude name="vendor/" />
+    </fileset>
+
+    <autoloader autoloaderpath="vendor/autoload.php"/>
+
+    <!-- Default target -->
+    <target name="build:main"
+            depends="build:clean, build:prepare, build:vendors, build:check, build:test, build:doc"
+            description="Run all test and build everything" />
+
+    <!-- Doc target -->
+    <target name="build:doc"
+            depends="build:prepare, doc:doxygen"
+            description="Generates app API documentation." />
+
+    <!-- Check target -->
+    <target name="build:check"
+            depends="check:lint, check:cs, check:md, check:cpd, check:phploc, check:depend, check:phpcb"
+            description="Analyzes app code." />
+
+    <!-- Test target -->
+    <target name="build:test"
+            depends="test:unit"
+            description="Executes all tests.." />
+
+    <!-- Project build clean -->
+    <target name="build:clean" description="Clean up build directories.">
+        <echo msg="Cleaning build directories ..." />
+        <delete dir="${dir.build}" verbose="true" />
+    </target>
+
+    <!-- Project build prepare -->
+    <target name="build:prepare" description="Create build directories.">
+        <echo msg="Creating build directories ..." />
+        <mkdir dir="${dir.build}" />
+        <mkdir dir="${dir.build.codebrowser}" />
+        <mkdir dir="${dir.build.coverage}" />
+        <mkdir dir="${dir.docs}" />
+        <mkdir dir="${dir.docs.doxygen}" />
+        <mkdir dir="${dir.reports}" />
+        <mkdir dir="${dir.reports.pdepend}" />
+    </target>
+
+    <!-- Doxygen API documentation target -->
+    <target name="doc:doxygen" description="Generate API documentation.">
+        <echo msg="Generating API documentation with Doxygen..." />
+        <exec command="doxygen" />
+    </target>
+
+    <!-- Symfony2 code sniffer -->
+    <target name="check:cs" description="Checks coding standard.">
+        <echo msg="Checking coding standard ..." />
+        <phpcodesniffer standard="Symfony2"
+                        showSniffs="true"
+                        showWarnings="true">
+            <fileset refid="sourcecode" />
+            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle.xml" />
+        </phpcodesniffer>
+    </target>
+
+    <!-- copy/paste detector -->
+    <target name="check:cpd" description="Checks similar code blocks.">
+        <echo msg="Checking similar code blocks ..." />
+        <phpcpd>
+            <fileset refid="sourcecode" />
+            <formatter type="pmd" outfile="${dir.reports}/pmd-cpd.xml" />
+        </phpcpd>
+    </target>
+
+    <!-- Mess detector -->
+    <target name="check:md" description="Generate code metrics.">
+        <echo msg="Generating code metrics ..." />
+        <phpmd rulesets="design,codesize,unusedcode">
+            <fileset refid="sourcecode" />
+            <formatter type="xml" outfile="${dir.reports}/pmd.xml" />
+        </phpmd>
+    </target>
+
+    <!-- Code dependency -->
+    <target name="check:depend" description="Checks coupling and dependency.">
+        <echo msg="Checking coupling and dependency ..." />
+        <phpdepend>
+            <fileset refid="sourcecode" />
+            <logger type="jdepend-xml" outfile="${dir.reports.pdepend}/jdepend.xml" />
+            <logger type="jdepend-chart" outfile="${dir.reports.pdepend}/dependencies.svg" />
+            <logger type="overview-pyramid" outfile="${dir.reports.pdepend}/overview-pyramid.svg" />
+        </phpdepend>
+    </target>
+
+    <!-- PHP Lint -->
+    <target name="check:lint" description="Perform syntax check of sourcecode files">
+        <phplint haltonfailure="true" cachefile="/tmp/phplint-cache-${phing.project.name}">
+            <fileset refid="sourcecode" />
+        </phplint>
+    </target>
+
+    <!-- PHP Loc -->
+    <target name="check:phploc" description="Measure project size using PHPLOC">
+        <phploc reportType="csv" reportDirectory="${dir.reports}" reportName="phploc">
+            <fileset refid="sourcecode" />
+        </phploc>
+    </target>
+
+    <target name="check:phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+        <exec executable="bin/phpcb">
+            <arg value="--log"/>
+            <arg path="${dir.reports}"/>
+            <arg value="--source"/>
+            <arg path="${dir.src}"/>
+            <arg value="--output"/>
+            <arg path="${dir.build.codebrowser}"/>
+        </exec>
+    </target>
+
+    <!-- Unit tests -->
+    <target name="test:unit" description="Executes unit tests.">
+        <echo msg="Running unit tests ..." />
+        <exec passthru="true" executable="bin/phpunit">
+            <arg value="--log-junit"/>
+            <arg path="${dir.reports}/phpunit.xml"/>
+            <arg value="--coverage-clover"/>
+            <arg path="${dir.reports}/clover.xml"/>
+            <arg value="--coverage-html"/>
+            <arg path="${dir.build.coverage}/"/>
+        </exec>
+    </target>
+
+    <target name="build:vendors" description="Install vendors">
+        <exec command="composer install" />
+    </target>
+
+</project>

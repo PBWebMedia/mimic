@@ -1,0 +1,7 @@
+PROJECT_NAME           = "Mimic"
+OUTPUT_DIRECTORY       = build/docs/doxygen/
+INPUT                  = src/ ./README.md
+USE_MDFILE_AS_MAINPAGE = ./README.md
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */Tests/*
+GENERATE_LATEX         = NO
