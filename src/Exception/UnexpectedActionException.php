@@ -51,7 +51,7 @@ class UnexpectedActionException extends MimicException
     }
 
     /**
-     * @return null|Action
+     * @return Action|null
      */
     public function getExpectedAction()
     {

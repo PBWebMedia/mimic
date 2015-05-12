@@ -15,7 +15,7 @@ class Action
     /** @var array */
     private $argumentList;
 
-    /** @var mixed */
+    /** @var mixed[] */
     private $response;
 
     /** @var bool */
@@ -44,7 +44,7 @@ class Action
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function getArgumentList()
     {

@@ -12,7 +12,7 @@ use Pbweb\Mimic\Model\Action;
  */
 abstract class MimicActionHandler
 {
-    /** @var EnqueuedActionCollection|null */
+    /** @var EnqueuedActionCollection */
     private $queue;
 
     /**
@@ -82,11 +82,11 @@ abstract class MimicActionHandler
     }
 
     /**
-     * Should be called by the class using this trait
+     * Should be called by the class using this mimic
      * But should not be overwritten
      *
-     * @param string $method
-     * @param array  $argumentList
+     * @param string  $method
+     * @param mixed[] $argumentList
      *
      * @return mixed
      * @throws UnexpectedActionException|mixed
