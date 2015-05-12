@@ -1,4 +1,4 @@
-# Pbweb Mimic
+# PBWeb Mimic
 
 Allows creation of Mimic versions of your classes.
 
