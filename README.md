@@ -73,3 +73,4 @@ See the `Action` class for more information about the model.
     Mimic->clearQueue()
     
 `clearQueue` will remove all the remaining actions from the queue.
+
