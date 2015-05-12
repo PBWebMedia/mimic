@@ -9,7 +9,7 @@ use Pbweb\Mimic\Service\MimicActionHandler;
  *
  * @copyright 2015 PB Web Media B.V.
  */
-class SampleMimic extends MimicActionHandler
+final class SampleMimic extends MimicActionHandler
 {
     /**
      * @param int $id

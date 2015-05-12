@@ -33,7 +33,7 @@ abstract class MimicActionHandler
      * @param mixed  $response
      * @param bool   $throw
      */
-    public function enqueue($method, array $argumentList = [], $response = null, $throw = false)
+    final public function enqueue($method, array $argumentList = [], $response = null, $throw = false)
     {
         $this->enableQueue();
 
@@ -45,7 +45,7 @@ abstract class MimicActionHandler
     /**
      * @return Action[]
      */
-    public function getQueueContent()
+    final public function getQueueContent()
     {
         return $this->queue->getRemainingActionList();
     }
@@ -53,22 +53,22 @@ abstract class MimicActionHandler
     /**
      * @return bool
      */
-    public function isFinished()
+    final public function isFinished()
     {
         return $this->queue->isEmpty();
     }
 
-    public function clearQueue()
+    final public function clearQueue()
     {
         $this->queue->clear();
     }
 
-    public function enableQueue()
+    final public function enableQueue()
     {
         $this->useQueue = true;
     }
 
-    public function disableQueue()
+    final public function disableQueue()
     {
         $this->useQueue = false;
     }
@@ -76,7 +76,7 @@ abstract class MimicActionHandler
     /**
      * @return bool
      */
-    public function isQueueEnabled()
+    final public function isQueueEnabled()
     {
         return $this->useQueue;
     }
