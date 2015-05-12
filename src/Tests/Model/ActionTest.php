@@ -5,11 +5,11 @@ namespace Pbweb\Mimic\Tests\Model;
 use Pbweb\Mimic\Model\Action;
 
 /**
- * Class BucketActionTest
+ * Class ActionTest
  *
  * @copyright 2015 PB Web Media B.V.
  */
-class BucketActionTest extends \PHPUnit_Framework_TestCase
+class ActionTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @param string $method

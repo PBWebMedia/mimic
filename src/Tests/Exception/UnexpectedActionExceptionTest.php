@@ -24,7 +24,7 @@ class UnexpectedActionExceptionTest extends \PHPUnit_Framework_TestCase
             'i::#1',
             'data-to-insert'
         ];
-        $action = $this->createMockBucketAction();
+        $action = $this->createMockAction();
         $action->expects($this->once())
             ->method('getMethod')
             ->willReturn($actionMethod);
@@ -60,7 +60,7 @@ class UnexpectedActionExceptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject|Action
      */
-    private function createMockBucketAction()
+    private function createMockAction()
     {
         return $this->getMockBuilder(Action::class)
             ->disableOriginalConstructor()
