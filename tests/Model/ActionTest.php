@@ -1,8 +1,6 @@
 <?php
 
-namespace Pbweb\Mimic\Tests\Model;
-
-use Pbweb\Mimic\Model\Action;
+namespace Pbweb\Mimic\Model;
 
 /**
  * Class ActionTest

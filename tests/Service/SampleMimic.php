@@ -1,8 +1,6 @@
 <?php
 
-namespace Pbweb\Mimic\Tests\Service;
-
-use Pbweb\Mimic\Service\MimicActionHandler;
+namespace Pbweb\Mimic\Service;
 
 /**
  * Class SampleMimic
