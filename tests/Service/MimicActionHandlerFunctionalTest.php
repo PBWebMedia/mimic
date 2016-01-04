@@ -1,6 +1,6 @@
 <?php
 
-namespace Pbweb\Mimic\Tests\Service;
+namespace Pbweb\Mimic\Service;
 
 use Pbweb\Mimic\Exception\UnexpectedActionException;
 use Pbweb\Mimic\Model\Action;

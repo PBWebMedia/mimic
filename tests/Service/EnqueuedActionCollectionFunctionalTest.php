@@ -1,9 +1,8 @@
 <?php
 
-namespace Pbweb\Mimic\Tests\Service;
+namespace Pbweb\Mimic\Service;
 
 use Pbweb\Mimic\Model\Action;
-use Pbweb\Mimic\Service\EnqueuedActionCollection;
 
 /**
  * Class EnqueuedActionCollectionFunctionalTest
