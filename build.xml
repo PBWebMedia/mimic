@@ -9,6 +9,7 @@
     <property name="dir.docs.doxygen" value="${dir.docs}/doxygen" />
     <property name="dir.reports" value="${dir.build}/logs" />
     <property name="dir.reports.pdepend" value="${dir.reports}/pdepend" />
+    <property name="bin.php" value="/usr/bin/php7.0" />
 
     <!-- Filesets -->
     <fileset id="sourcecode" dir="${dir.src}">
@@ -119,27 +120,13 @@
     </target>
 
     <target name="check:phpcb" description="Aggregate tool output with PHP_CodeBrowser">
-        <exec executable="bin/phpcb">
-            <arg value="--log"/>
-            <arg path="${dir.reports}"/>
-            <arg value="--source"/>
-            <arg path="${dir.src}"/>
-            <arg value="--output"/>
-            <arg path="${dir.build.codebrowser}"/>
-        </exec>
+        <exec passthru="true" command="${bin.php} bin/phpcb --log ${dir.reports}/ --source ${dir.src}/ --output ${dir.build.codebrowser}/"/>
     </target>
 
     <!-- Unit tests -->
     <target name="test:unit" description="Executes unit tests.">
         <echo msg="Running unit tests ..." />
-        <exec passthru="true" executable="bin/phpunit">
-            <arg value="--log-junit"/>
-            <arg path="${dir.reports}/phpunit.xml"/>
-            <arg value="--coverage-clover"/>
-            <arg path="${dir.reports}/clover.xml"/>
-            <arg value="--coverage-html"/>
-            <arg path="${dir.build.coverage}/"/>
-        </exec>
+        <exec passthru="true" command="${bin.php} -dzend_extension=xdebug.so bin/phpunit --log-junit ${dir.reports}/phpunit.xml --coverage-clover ${dir.reports}/clover.xml --coverage-html ${dir.build.coverage}/"/>
     </target>
 
     <target name="build:vendors" description="Install vendors">
