@@ -1,52 +1,103 @@
-# PBWeb Mimic
+# Mimic
 
-Allows creation of Mimic versions of your classes.
+This library can be used to create mimics of your classes, which can be used for (functional) testing.
 
-# Installation
+A mimicked class is similar to mock objects with stub methods in phpunit, but on a functional level.
 
-## Install with composer
+## Installation
 
-Add the following line in the `"require"` section in your `composer.json`:
+### Install with composer
 
-    "pbweb/mimic": "dev-master"
+Install mimic using composer:
 
-then, ask composer to install it:
+```
+composer require pbweb/mimic
+```
 
-    composer update pbweb/mimic
+## Example
 
+Lets say you have a client class which talks to an external REST service. The interface might look like this:
 
-# Usage
+```php
+interface RestClient
+{
+    public function get($something);
+    public function put($something);
+}
+```
+
+Now, using a class which really connects to the REST server in a (functional) test is a bad idea, since that server may not be in the scope of your test and influence the results.
+
+To create a mimic client you need to extend `MimicActionHandler` like this:
+
+```php
+class MimicRestClient extends MimicActionHandler implements RestClient
+{
+    public function get($something)
+    {
+        return $this->handleAction(__FUNCTION__, func_get_args());
+    }
+    
+    public function put($something)
+    {
+        return $this->handleAction(__FUNCTION__, func_get_args());
+    }
+}
+```
+
+Now you can mimic the behaviour of the `RestClient` in your tests:
+
+```php
+// In your dependency injection container:
+$mimicClient = new MimicRestClient();
+
+// In your test setup:
+$mimicClient->enqueue('get', ['cheese'], 'cheese result');
+
+// In your test or in a class which you are testing:
+$result = $mimicClient->get('cheese'); // returns 'cheese result'
+```
+
+## Usage
 
 Extending `MimicActionHandler` will allow your class to have the mimic enqueue system.
 Every method you want to mimic should have this as the body:
 
 ```php
-    return $this->handleAction(__FUNCTION__, func_get_args());
+return $this->handleAction(__FUNCTION__, func_get_args());
 ```
 
-See `SampleMimic` for an example.
+See `tests/Service/SampleMimic` for an example.
 
-## enableQueue
+### enableQueue
 
-    Mimic->enableQueue();
+```php
+$mimic->enableQueue();
+```
 
 `enableQueue` will enable the use of the queue.
 
-## disableQueue
+### disableQueue
 
-    Mimic->disableQueue();
+```php
+$mimic->disableQueue();
+```
 
 `disableQueue` will stop the use of the queue.
 
-## isQueueEnabled
+### isQueueEnabled
 
-    $isQueueEnabled = Mimic->isQueueEnabled();
+```php
+$isQueueEnabled = $mimic->isQueueEnabled();
+```
 
 `isQueueEnabled` will return a boolean value with the state of the queue.
 
-## enqueue
+### enqueue
 
-    Mimic->enqueue($method, array $argumentList = [], $response = null, $throw = false);
+```php
+$mimic->enqueue($method, array $argumentList = [], $response = null, $throw = false);
+```
     
 `enqueue` will add a method call to the expected queue.
 You can add as many method prediction as you like.
@@ -55,22 +106,28 @@ If the next call to the mimic is not the same as the expected call added to the 
 
 If you set `throw` to `true` then the response will be thrown instead of returned.
 
-## getQueueContent
+### getQueueContent
 
-    $actionList = Mimic->getQueueContent()
+```php
+$actionList = $mimic->getQueueContent();
+```
     
 `getQueueContent` will return all the remaining actions added to the queue as Action models.
 See the `Action` class for more information about the model.
 
-## isFinished
+### isFinished
 
-    $isFinished = Mimic->isFinished()
+```php
+$isFinished = $mimic->isFinished();
+```
     
 `isFinished` will return true if there are no more action left in the queue. false otherwise.
 
-## clearQueue
+### clearQueue
     
-    Mimic->clearQueue()
+```php
+$mimic->clearQueue();
+```
     
 `clearQueue` will remove all the remaining actions from the queue.
 
