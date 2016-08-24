@@ -10,18 +10,20 @@ A mimicked class is similar to mock objects with stub methods in phpunit, but on
 
 Install mimic using composer:
 
-    composer require pbweb/mimic
+```
+composer require pbweb/mimic
+```
 
 ## Example
 
 Lets say you have a client class which talks to an external REST service. The interface might look like this:
 
 ```php
-    interface RestClient
-    {
-        public function get($something);
-        public function put($something);
-    }
+interface RestClient
+{
+    public function get($something);
+    public function put($something);
+}
 ```
 
 Now, using a class which really connects to the REST server in a (functional) test is a bad idea, since that server may not be in the scope of your test and influence the results.
@@ -29,31 +31,31 @@ Now, using a class which really connects to the REST server in a (functional) te
 To create a mimic client you need to extend `MimicActionHandler` like this:
 
 ```php
-    class MimicRestClient extends MimicActionHandler implements RestClient
+class MimicRestClient extends MimicActionHandler implements RestClient
+{
+    public function get($something)
     {
-        public function get($something)
-        {
-            return $this->handleAction(__FUNCTION__, func_get_args());
-        }
-        
-        public function put($something)
-        {
-            return $this->handleAction(__FUNCTION__, func_get_args());
-        }
+        return $this->handleAction(__FUNCTION__, func_get_args());
     }
+    
+    public function put($something)
+    {
+        return $this->handleAction(__FUNCTION__, func_get_args());
+    }
+}
 ```
 
 Now you can mimic the behaviour of the `RestClient` in your tests:
 
 ```php
-    // In your dependency injection container:
-    $mimicClient = new MimicRestClient();
-    
-    // In your test setup:
-    $mimicClient->enqueue('get', ['cheese'], 'cheese result');
-    
-    // In your test or in a class which you are testing:
-    $result = $mimicClient->get('cheese'); // returns 'cheese result'
+// In your dependency injection container:
+$mimicClient = new MimicRestClient();
+
+// In your test setup:
+$mimicClient->enqueue('get', ['cheese'], 'cheese result');
+
+// In your test or in a class which you are testing:
+$result = $mimicClient->get('cheese'); // returns 'cheese result'
 ```
 
 ## Usage
@@ -62,32 +64,40 @@ Extending `MimicActionHandler` will allow your class to have the mimic enqueue s
 Every method you want to mimic should have this as the body:
 
 ```php
-    return $this->handleAction(__FUNCTION__, func_get_args());
+return $this->handleAction(__FUNCTION__, func_get_args());
 ```
 
 See `tests/Service/SampleMimic` for an example.
 
 ### enableQueue
 
-    $mimic->enableQueue();
+```php
+$mimic->enableQueue();
+```
 
 `enableQueue` will enable the use of the queue.
 
 ### disableQueue
 
-    $mimic->disableQueue();
+```php
+$mimic->disableQueue();
+```
 
 `disableQueue` will stop the use of the queue.
 
 ### isQueueEnabled
 
-    $isQueueEnabled = $mimic->isQueueEnabled();
+```php
+$isQueueEnabled = $mimic->isQueueEnabled();
+```
 
 `isQueueEnabled` will return a boolean value with the state of the queue.
 
 ### enqueue
 
-    $mimic->enqueue($method, array $argumentList = [], $response = null, $throw = false);
+```php
+$mimic->enqueue($method, array $argumentList = [], $response = null, $throw = false);
+```
     
 `enqueue` will add a method call to the expected queue.
 You can add as many method prediction as you like.
@@ -98,20 +108,26 @@ If you set `throw` to `true` then the response will be thrown instead of returne
 
 ### getQueueContent
 
-    $actionList = $mimic->getQueueContent()
+```php
+$actionList = $mimic->getQueueContent();
+```
     
 `getQueueContent` will return all the remaining actions added to the queue as Action models.
 See the `Action` class for more information about the model.
 
 ### isFinished
 
-    $isFinished = $mimic->isFinished()
+```php
+$isFinished = $mimic->isFinished();
+```
     
 `isFinished` will return true if there are no more action left in the queue. false otherwise.
 
 ### clearQueue
     
-    $mimic->clearQueue()
+```php
+$mimic->clearQueue();
+```
     
 `clearQueue` will remove all the remaining actions from the queue.
 
