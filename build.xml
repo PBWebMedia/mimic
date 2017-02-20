@@ -19,7 +19,7 @@
         <exclude name="vendor/" />
     </fileset>
 
-    <autoloader autoloaderpath="vendor/autoload.php"/>
+    <autoloader autoloaderpath="${project.basedir}/vendor/autoload.php"/>
 
     <!-- Default target -->
     <target name="build:main"
@@ -68,11 +68,12 @@
     <!-- Symfony2 code sniffer -->
     <target name="check:cs" description="Checks coding standard.">
         <echo msg="Checking coding standard ..." />
-        <phpcodesniffer standard="Symfony2"
+        <phpcodesniffer standard="Pbweb"
                         showSniffs="true"
                         showWarnings="true">
             <fileset refid="sourcecode" />
             <formatter type="checkstyle" outfile="${dir.reports}/checkstyle.xml" />
+            <config name="installed_paths" value="${project.basedir}/vendor/pbweb/pbweb-coding-standard,${project.basedir}/vendor/escapestudios/symfony2-coding-standard"/>
         </phpcodesniffer>
     </target>
 
