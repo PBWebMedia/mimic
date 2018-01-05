@@ -1,5 +1,8 @@
 # Mimic
 
+[![pipeline status](https://gitlab.pbwdev.com/symfony-bundles/mimic/badges/master/pipeline.svg)](https://gitlab.pbwdev.com/symfony-bundles/mimic/commits/master)
+[![coverage report](https://gitlab.pbwdev.com/symfony-bundles/mimic/badges/master/coverage.svg)](https://pages.pbwdev.com/symfony-bundles/mimic/)
+
 This library can be used to create mimics of your classes, which can be used for (functional) testing.
 
 A mimicked class is similar to mock objects with stub methods in phpunit, but on a functional level.
