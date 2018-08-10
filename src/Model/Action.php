@@ -3,8 +3,6 @@
 namespace Pbweb\Mimic\Model;
 
 /**
- * Class Action
- *
  * @copyright 2015 PB Web Media B.V.
  */
 class Action
@@ -35,10 +33,7 @@ class Action
         $this->throw = $throw;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return $this->method;
     }
@@ -46,7 +41,7 @@ class Action
     /**
      * @return mixed[]
      */
-    public function getArgumentList()
+    public function getArgumentList(): array
     {
         return $this->argumentList;
     }
@@ -59,10 +54,7 @@ class Action
         return $this->response;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isThrow()
+    public function isThrow(): bool
     {
         return $this->throw;
     }

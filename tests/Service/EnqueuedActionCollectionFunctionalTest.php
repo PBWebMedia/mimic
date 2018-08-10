@@ -2,14 +2,14 @@
 
 namespace Pbweb\Mimic\Service;
 
+use Pbweb\Mimic\Matchers\ArgumentMatchers;
 use Pbweb\Mimic\Model\Action;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class EnqueuedActionCollectionFunctionalTest
- *
  * @copyright 2015 PB Web Media B.V.
  */
-class EnqueuedActionCollectionFunctionalTest extends \PHPUnit_Framework_TestCase
+class EnqueuedActionCollectionFunctionalTest extends TestCase
 {
     public function testEmptyQueue()
     {
@@ -99,6 +99,30 @@ class EnqueuedActionCollectionFunctionalTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(get_class($exception), $exception->getMessage());
 
         $queue->fulfill();
+    }
+
+    public function testUsesMatchers()
+    {
+        // expect ID 1 with any value.
+        $action = new Action('update', [1, ArgumentMatchers::any()], 'response');
+        $queue = new EnqueuedActionCollection();
+
+        $queue->add($action);
+        $this->assertTrue($queue->isExpecting('update', [1, 'value']));
+
+        $queue->add($action);
+        $this->assertTrue($queue->isExpecting('update', [1, 'other value']));
+
+        $queue->add($action);
+        $this->assertFalse($queue->isExpecting('update', [2, 'value']));
+
+        // too few arguments
+        $queue->add($action);
+        $this->assertFalse($queue->isExpecting('update', [1]));
+
+        // too many arguments
+        $queue->add($action);
+        $this->assertFalse($queue->isExpecting('update', [1, 'value', 'one too many']));
     }
 
     private function assertAction(Action $action, EnqueuedActionCollection $queue)

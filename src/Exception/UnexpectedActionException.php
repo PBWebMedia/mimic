@@ -5,8 +5,6 @@ namespace Pbweb\Mimic\Exception;
 use Pbweb\Mimic\Model\Action;
 
 /**
- * Class UnexpectedActionException
- *
  * @copyright 2015 PB Web Media B.V.
  */
 class UnexpectedActionException extends MimicException
@@ -34,26 +32,17 @@ class UnexpectedActionException extends MimicException
         $this->prepareMessage();
     }
 
-    /**
-     * @return string
-     */
-    public function getReceivedMethod()
+    public function getReceivedMethod(): string
     {
         return $this->receivedMethod;
     }
 
-    /**
-     * @return array
-     */
-    public function getReceivedArgumentList()
+    public function getReceivedArgumentList(): array
     {
         return $this->receivedArgumentList;
     }
 
-    /**
-     * @return Action|null
-     */
-    public function getExpectedAction()
+    public function getExpectedAction(): ?Action
     {
         return $this->expectedAction;
     }
@@ -67,10 +56,7 @@ class UnexpectedActionException extends MimicException
         );
     }
 
-    /**
-     * @return string
-     */
-    private function formatDetailedMessage()
+    private function formatDetailedMessage(): string
     {
         if ($this->expectedAction === null) {
             return 'No more calls where expected.';

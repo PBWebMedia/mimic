@@ -61,6 +61,15 @@ $mimicClient->enqueue('get', ['cheese'], 'cheese result');
 $result = $mimicClient->get('cheese'); // returns 'cheese result'
 ```
 
+#### Argument Matchers
+In case you want more control over the arguments that are expected for a call, you can use argument matchers.
+
+The `ArgumentMatchers` class instantiates several matchers which can be passed to the expected argument list of enqueue.
+```php
+// Matches any call to update that has 1 as its first argument and any value as its second argument.
+$mimicClient->enqueue('update', [1, ArgumentMatchers::any(), 'result');
+```
+
 ## Usage
 
 Extending `MimicActionHandler` will allow your class to have the mimic enqueue system.

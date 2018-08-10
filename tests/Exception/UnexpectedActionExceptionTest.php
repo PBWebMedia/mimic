@@ -3,13 +3,12 @@
 namespace Pbweb\Mimic\Exception;
 
 use Pbweb\Mimic\Model\Action;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class UnexpectedActionExceptionTest
- *
  * @copyright 2015 PB Web Media B.V.
  */
-class UnexpectedActionExceptionTest extends \PHPUnit_Framework_TestCase
+class UnexpectedActionExceptionTest extends TestCase
 {
     public function test()
     {

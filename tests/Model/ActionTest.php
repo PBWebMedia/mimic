@@ -2,12 +2,12 @@
 
 namespace Pbweb\Mimic\Model;
 
+use PHPUnit\Framework\TestCase;
+
 /**
- * Class ActionTest
- *
  * @copyright 2015 PB Web Media B.V.
  */
-class ActionTest extends \PHPUnit_Framework_TestCase
+class ActionTest extends TestCase
 {
     /**
      * @param string $method

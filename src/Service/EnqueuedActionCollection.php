@@ -2,7 +2,9 @@
 
 namespace Pbweb\Mimic\Service;
 
+use Pbweb\Mimic\Matchers\ArgumentMatcherInterface;
 use Pbweb\Mimic\Model\Action;
+use SplQueue;
 
 /**
  * Class EnqueuedActionCollection
@@ -11,7 +13,7 @@ use Pbweb\Mimic\Model\Action;
  */
 class EnqueuedActionCollection
 {
-    /** @var \SplQueue */
+    /** @var SplQueue */
     private $queue;
 
     public function __construct()
@@ -19,30 +21,49 @@ class EnqueuedActionCollection
         $this->clear();
     }
 
-    /**
-     * @param Action $action
-     */
-    public function add(Action $action)
+    public function add(Action $action): void
     {
         $this->queue->enqueue($action);
     }
 
-    /**
-     * @param string $method
-     * @param array  $argumentList
-     *
-     * @return bool
-     */
-    public function isExpecting($method, array $argumentList = [])
+    public function isExpecting(string $method, array $argumentList = []): bool
     {
         $this->queue->rewind();
+
+        /** @var Action $expectingAction */
         $expectingAction = $this->queue->current();
         if ( ! $expectingAction) {
             return false;
         }
 
-        if ($expectingAction->getMethod() != $method || $expectingAction->getArgumentList() != $argumentList) {
+        if ($expectingAction->getMethod() != $method) {
             return false;
+        }
+
+        if ( ! $this->isArgumentListMatching($expectingAction->getArgumentList(), $argumentList)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function isArgumentListMatching(array $expectedArgumentList, array $actualArgumentList): bool
+    {
+        if (sizeof($expectedArgumentList) != sizeof($actualArgumentList)) {
+            return false;
+        }
+
+        foreach ($expectedArgumentList as $index => $expectedArgument) {
+            $actualArgument = $actualArgumentList[$index];
+            if ($expectedArgument instanceof ArgumentMatcherInterface) {
+                $argumentMatches = $expectedArgument->isMatching($actualArgument);
+            } else {
+                $argumentMatches = $expectedArgument == $actualArgument;
+            }
+
+            if (! $argumentMatches) {
+                return false;
+            }
         }
 
         return true;
@@ -65,18 +86,12 @@ class EnqueuedActionCollection
         return $response;
     }
 
-    /**
-     * @return Action|null
-     */
-    public function getExpectedAction()
+    public function getExpectedAction(): ?Action
     {
         return $this->queue->current();
     }
 
-    /**
-     * @return bool
-     */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return $this->queue->isEmpty();
     }
@@ -84,7 +99,7 @@ class EnqueuedActionCollection
     /**
      * @return Action[]
      */
-    public function getRemainingActionList()
+    public function getRemainingActionList(): array
     {
         $actionList = [];
         foreach ($this->queue as $action) {
@@ -95,8 +110,8 @@ class EnqueuedActionCollection
         return $actionList;
     }
 
-    public function clear()
+    public function clear(): void
     {
-        $this->queue = new \SplQueue();
+        $this->queue = new SplQueue();
     }
 }
