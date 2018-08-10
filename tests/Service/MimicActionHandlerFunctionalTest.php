@@ -4,13 +4,12 @@ namespace Pbweb\Mimic\Service;
 
 use Pbweb\Mimic\Exception\UnexpectedActionException;
 use Pbweb\Mimic\Model\Action;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class MimicActionHandlerFunctionalTest
- *
  * @copyright 2015 PB Web Media B.V.
  */
-class MimicActionHandlerFunctionalTest extends \PHPUnit_Framework_TestCase
+class MimicActionHandlerFunctionalTest extends TestCase
 {
     /** @var SampleMimic */
     private $mimic;
@@ -101,7 +100,8 @@ class MimicActionHandlerFunctionalTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidAction()
     {
-        $this->setExpectedException(UnexpectedActionException::class, 'Unexpected call to method "get" with the given argument list.' . PHP_EOL . 'No more calls where expected.');
+        $this->expectException(UnexpectedActionException::class);
+        $this->expectExceptionMessage('Unexpected call to method "get" with the given argument list.' . PHP_EOL . 'No more calls where expected.');
 
         $this->mimic->enableQueue();
         $this->mimic->get(1);

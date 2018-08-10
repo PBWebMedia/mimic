@@ -6,8 +6,6 @@ use Pbweb\Mimic\Exception\UnexpectedActionException;
 use Pbweb\Mimic\Model\Action;
 
 /**
- * Class MimicActionHandler
- *
  * @copyright 2015 PB Web Media B.V.
  */
 abstract class MimicActionHandler
@@ -45,38 +43,32 @@ abstract class MimicActionHandler
     /**
      * @return Action[]
      */
-    final public function getQueueContent()
+    final public function getQueueContent(): array
     {
         return $this->queue->getRemainingActionList();
     }
 
-    /**
-     * @return bool
-     */
-    final public function isFinished()
+    final public function isFinished(): bool
     {
         return $this->queue->isEmpty();
     }
 
-    final public function clearQueue()
+    final public function clearQueue(): void
     {
         $this->queue->clear();
     }
 
-    final public function enableQueue()
+    final public function enableQueue(): void
     {
         $this->useQueue = true;
     }
 
-    final public function disableQueue()
+    final public function disableQueue(): void
     {
         $this->useQueue = false;
     }
 
-    /**
-     * @return bool
-     */
-    final public function isQueueEnabled()
+    final public function isQueueEnabled(): bool
     {
         return $this->useQueue;
     }

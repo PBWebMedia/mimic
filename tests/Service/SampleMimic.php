@@ -3,8 +3,6 @@
 namespace Pbweb\Mimic\Service;
 
 /**
- * Class SampleMimic
- *
  * @copyright 2015 PB Web Media B.V.
  */
 final class SampleMimic extends MimicActionHandler
@@ -15,7 +13,7 @@ final class SampleMimic extends MimicActionHandler
      * @return string
      * @throws \Exception
      */
-    public function get($id)
+    public function get(int $id)
     {
         return $this->handleAction(__FUNCTION__, func_get_args());
     }
