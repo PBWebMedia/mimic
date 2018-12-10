@@ -8,9 +8,6 @@ namespace Pbweb\Mimic\Service;
 final class SampleMimic extends MimicActionHandler
 {
     /**
-     * @param int $id
-     *
-     * @return string
      * @throws \Exception
      */
     public function get(int $id)
@@ -19,13 +16,9 @@ final class SampleMimic extends MimicActionHandler
     }
 
     /**
-     * @param int    $id
-     * @param string $value
-     *
-     * @return bool
      * @throws \Exception
      */
-    public function update($id, $value)
+    public function update(int $id, string $value)
     {
         return $this->handleAction(__FUNCTION__, func_get_args());
     }

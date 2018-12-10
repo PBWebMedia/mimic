@@ -10,14 +10,9 @@ use PHPUnit\Framework\TestCase;
 class ActionTest extends TestCase
 {
     /**
-     * @param string $method
-     * @param array  $argumentList
-     * @param mixed  $response
-     * @param bool   $isThrow
-     *
      * @dataProvider getData
      */
-    public function test($method, array $argumentList, $response, $isThrow = false)
+    public function test(string $method, array $argumentList, $response, bool $isThrow = false)
     {
         $action = new Action($method, $argumentList, $response, $isThrow);
 

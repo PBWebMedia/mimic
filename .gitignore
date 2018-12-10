@@ -1,6 +1,4 @@
 /bin
-/build
 /vendor
 /.idea/workspace.xml
 /.idea/dataSources.xml
-debug.txt

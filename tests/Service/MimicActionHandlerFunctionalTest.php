@@ -127,12 +127,9 @@ class MimicActionHandlerFunctionalTest extends TestCase
     }
 
     /**
-     * @param string $method
-     * @param array  $argumentList
-     *
      * @dataProvider getMethodsData
      */
-    public function testMethodGoesToQueue($method, array $argumentList = [])
+    public function testMethodGoesToQueue(string $method, array $argumentList = [])
     {
         $expectedResponse = 'response';
         $this->mimic->enqueue($method, $argumentList, $expectedResponse);
@@ -145,9 +142,6 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertEquals($expectedResponse, $result);
     }
 
-    /**
-     * @return array[]
-     */
     public function getMethodsData()
     {
         return [

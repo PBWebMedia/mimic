@@ -9,7 +9,6 @@ class ArrayContainsMatcher implements ArgumentMatcherInterface
 {
     /** @var array */
     private $expectedContentList;
-
     /** @var bool */
     private $associative;
 
@@ -29,7 +28,6 @@ class ArrayContainsMatcher implements ArgumentMatcherInterface
         } else {
             return $this->matchNonAssociative($argument);
         }
-
     }
 
     private function matchAssociative(array $argument): bool {

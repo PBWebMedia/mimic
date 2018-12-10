@@ -7,5 +7,4 @@ namespace Pbweb\Mimic\Exception;
  */
 class MimicException extends \Exception
 {
-
 }

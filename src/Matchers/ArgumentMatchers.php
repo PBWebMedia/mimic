@@ -9,8 +9,6 @@ class ArgumentMatchers
 {
     /**
      * Matches any argument received.
-     *
-     * @return ArgumentMatcherInterface
      */
     public static function any(): ArgumentMatcherInterface
     {
@@ -22,10 +20,6 @@ class ArgumentMatchers
      *
      * If associative is set to TRUE key => value pairs will have to match as a whole, otherwise only values will be
      * checked for.
-     *
-     * @param array $expectedContentList
-     * @param bool $associative
-     * @return ArgumentMatcherInterface
      */
     public static function arrayContains(array $expectedContentList, bool $associative = false): ArgumentMatcherInterface
     {

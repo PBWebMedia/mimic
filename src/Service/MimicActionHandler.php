@@ -25,13 +25,7 @@ abstract class MimicActionHandler
         $this->queue = new EnqueuedActionCollection();
     }
 
-    /**
-     * @param string $method
-     * @param array  $argumentList
-     * @param mixed  $response
-     * @param bool   $throw
-     */
-    final public function enqueue($method, array $argumentList = [], $response = null, $throw = false)
+    final public function enqueue(string $method, array $argumentList = [], $response = null, bool $throw = false)
     {
         $this->enableQueue();
 
@@ -83,7 +77,7 @@ abstract class MimicActionHandler
      * @return mixed
      * @throws UnexpectedActionException|mixed
      */
-    final protected function handleAction($method, array $argumentList = [])
+    final protected function handleAction(string $method, array $argumentList = [])
     {
         if ( ! $this->useQueue) {
             return null;

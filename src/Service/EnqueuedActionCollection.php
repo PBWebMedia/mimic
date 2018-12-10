@@ -7,8 +7,6 @@ use Pbweb\Mimic\Model\Action;
 use SplQueue;
 
 /**
- * Class EnqueuedActionCollection
- *
  * @copyright 2015 PB Web Media B.V.
  */
 class EnqueuedActionCollection
@@ -71,7 +69,6 @@ class EnqueuedActionCollection
 
     /**
      * @return mixed
-     * @throws mixed
      */
     public function fulfill()
     {

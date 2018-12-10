@@ -11,19 +11,12 @@ class UnexpectedActionException extends MimicException
 {
     /** @var string */
     private $receivedMethod;
-
     /** @var array */
     private $receivedArgumentList;
-
     /** @var Action|null */
     private $expectedAction;
 
-    /**
-     * @param string      $receivedMethod
-     * @param array       $receivedArgumentList
-     * @param Action|null $expectedAction
-     */
-    public function __construct($receivedMethod, array $receivedArgumentList, Action $expectedAction = null)
+    public function __construct(string $receivedMethod, array $receivedArgumentList, Action $expectedAction = null)
     {
         $this->receivedMethod = $receivedMethod;
         $this->receivedArgumentList = $receivedArgumentList;

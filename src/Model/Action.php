@@ -9,23 +9,14 @@ class Action
 {
     /** @var string */
     private $method;
-
     /** @var array */
     private $argumentList;
-
     /** @var mixed[] */
     private $response;
-
     /** @var bool */
     private $throw;
 
-    /**
-     * @param string $method
-     * @param array  $argumentList
-     * @param mixed  $response
-     * @param bool   $throw
-     */
-    public function __construct($method, array $argumentList = [], $response = null, $throw = false)
+    public function __construct(string $method, array $argumentList = [], $response = null, bool $throw = false)
     {
         $this->method = $method;
         $this->argumentList = $argumentList;
