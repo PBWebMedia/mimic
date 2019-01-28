@@ -96,7 +96,8 @@ class EnqueuedActionCollectionFunctionalTest extends TestCase
         $queue = new EnqueuedActionCollection();
         $queue->add($action);
 
-        $this->setExpectedException(get_class($exception), $exception->getMessage());
+        $this->expectException(get_class($exception));
+        $this->expectExceptionMessage($exception->getMessage());
 
         $queue->fulfill();
     }

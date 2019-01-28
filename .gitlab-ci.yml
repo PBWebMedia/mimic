@@ -41,7 +41,7 @@ build-php-dev:
       - app/config/parameters.yml
 
 test:
-  image: $CI_REGISTRY/backend/docker/images/php:7.1-cli
+  image: $CI_REGISTRY/backend/docker/images/php:7.2-cli
   stage: test
   script:
     - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --colors
@@ -51,10 +51,9 @@ test:
     - master
 
 test-coverage:
-  image: $CI_REGISTRY/backend/docker/images/php:7.1-cli
+  image: $CI_REGISTRY/backend/docker/images/php:7.2-dbg-cli
   stage: test
   script:
-    - docker-php-pecl-install xdebug || true
     - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --coverage-text --coverage-html coverage
   dependencies:
     - build-php-dev

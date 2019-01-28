@@ -155,7 +155,8 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $exception = new \InvalidArgumentException('Invalid argument');
         $this->mimic->enqueue('get', [1], $exception, true);
 
-        $this->setExpectedException(get_class($exception), $exception->getMessage());
+        $this->expectException(get_class($exception));
+        $this->expectExceptionMessage($exception->getMessage());
 
         $this->mimic->get(1);
     }
