@@ -73,14 +73,15 @@ abstract class MimicActionHandler
      *
      * @param string  $method
      * @param mixed[] $argumentList
+     * @param mixed   $defaultResponse
      *
      * @return mixed
      * @throws UnexpectedActionException|mixed
      */
-    final protected function handleAction(string $method, array $argumentList = [])
+    final protected function handleAction(string $method, array $argumentList = [], $defaultResponse = null)
     {
         if ( ! $this->useQueue) {
-            return null;
+            return $defaultResponse;
         }
 
         if ($this->queue->isExpecting($method, $argumentList)) {
