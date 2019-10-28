@@ -14,7 +14,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
     /** @var SampleMimic */
     private $mimic;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->mimic = new SampleMimic();
     }

@@ -2,3 +2,4 @@
 /vendor
 /.idea/workspace.xml
 /.idea/dataSources.xml
+/.phpunit.result.cache
