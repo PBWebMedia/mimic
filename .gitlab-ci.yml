@@ -51,7 +51,7 @@ test:
     - master
 
 test-coverage:
-  image: $CI_REGISTRY/backend/docker/images/php:7.3-dbg-cli
+  image: $CI_REGISTRY/backend/docker/images/php:7.3-pcov-cli
   stage: test
   script:
     - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --coverage-text --coverage-html coverage
