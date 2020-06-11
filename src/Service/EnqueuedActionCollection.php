@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Service;
 
@@ -11,8 +11,7 @@ use SplQueue;
  */
 class EnqueuedActionCollection
 {
-    /** @var SplQueue */
-    private $queue;
+    private SplQueue $queue;
 
     public function __construct()
     {
@@ -59,7 +58,7 @@ class EnqueuedActionCollection
                 $argumentMatches = $expectedArgument == $actualArgument;
             }
 
-            if (! $argumentMatches) {
+            if ( ! $argumentMatches) {
                 return false;
             }
         }

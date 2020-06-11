@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Service;
 
@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 class MimicActionHandlerFunctionalTest extends TestCase
 {
     /** @var SampleMimic */
-    private $mimic;
+    private SampleMimic $mimic;
 
     protected function setUp(): void
     {

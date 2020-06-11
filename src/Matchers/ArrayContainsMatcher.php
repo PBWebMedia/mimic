@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Matchers;
 
@@ -7,10 +7,8 @@ namespace Pbweb\Mimic\Matchers;
  */
 class ArrayContainsMatcher implements ArgumentMatcherInterface
 {
-    /** @var array */
-    private $expectedContentList;
-    /** @var bool */
-    private $associative;
+    private array $expectedContentList;
+    private bool $associative;
 
     public function __construct(array $expectedContentList, bool $associative) {
         $this->expectedContentList = $expectedContentList;

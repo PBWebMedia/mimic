@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Model;
 
@@ -7,14 +7,10 @@ namespace Pbweb\Mimic\Model;
  */
 class Action
 {
-    /** @var string */
-    private $method;
-    /** @var array */
-    private $argumentList;
-    /** @var mixed[] */
+    private string $method;
+    private array $argumentList;
     private $response;
-    /** @var bool */
-    private $throw;
+    private bool $throw;
 
     public function __construct(string $method, array $argumentList = [], $response = null, bool $throw = false)
     {

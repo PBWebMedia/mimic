@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Service;
 
@@ -10,15 +10,12 @@ use Pbweb\Mimic\Model\Action;
  */
 abstract class MimicActionHandler
 {
-    /** @var EnqueuedActionCollection */
-    private $queue;
+    private EnqueuedActionCollection $queue;
 
     /**
      * Do we make use of the queue or ignore the calls?
-     *
-     * @var bool
      */
-    private $useQueue = false;
+    private bool $useQueue = false;
 
     public function __construct()
     {

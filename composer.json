@@ -4,11 +4,11 @@
   "keywords": ["mimic", "class", "library", "testing", "mock", "stub"],
   "license": "MIT",
   "require": {
-    "php": "^7.1",
+    "php": "^7.4",
     "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.4"
+    "phpunit/phpunit": "^9.2"
   },
   "autoload": {
     "psr-4": {

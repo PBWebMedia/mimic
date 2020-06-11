@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Service;
 
@@ -8,7 +8,7 @@ namespace Pbweb\Mimic\Service;
 final class SampleMimic extends MimicActionHandler
 {
     /**
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function get(int $id)
     {
@@ -16,7 +16,7 @@ final class SampleMimic extends MimicActionHandler
     }
 
     /**
-     * @throws \Exception
+     * @throws \Throwable
      */
     public function update(int $id, string $value)
     {

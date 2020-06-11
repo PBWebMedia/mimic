@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Model;
 
@@ -22,10 +22,7 @@ class ActionTest extends TestCase
         $this->assertEquals($isThrow, $action->isThrow());
     }
 
-    /**
-     * @return array[]
-     */
-    public function getData()
+    public function getData(): array
     {
         return [
             [

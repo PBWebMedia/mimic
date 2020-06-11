@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Exception;
 
@@ -9,15 +9,14 @@ use Pbweb\Mimic\Model\Action;
  */
 class UnexpectedActionException extends MimicException
 {
-    /** @var string */
-    private $receivedMethod;
-    /** @var array */
-    private $receivedArgumentList;
-    /** @var Action|null */
-    private $expectedAction;
+    private string $receivedMethod;
+    private array $receivedArgumentList;
+    private ?Action $expectedAction;
 
     public function __construct(string $receivedMethod, array $receivedArgumentList, Action $expectedAction = null)
     {
+        parent::__construct();
+
         $this->receivedMethod = $receivedMethod;
         $this->receivedArgumentList = $receivedArgumentList;
         $this->expectedAction = $expectedAction;

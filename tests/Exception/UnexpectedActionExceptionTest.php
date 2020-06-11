@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Pbweb\Mimic\Exception;
 
 use Pbweb\Mimic\Model\Action;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -56,7 +57,7 @@ class UnexpectedActionExceptionTest extends TestCase
     }
 
     /**
-     * @return \PHPUnit_Framework_MockObject_MockObject|Action
+     * @return MockObject|Action
      */
     private function createMockAction()
     {
