@@ -33,8 +33,6 @@ test:
   artifacts:
     paths:
       - coverage/
-  only:
-    - master
 
 pages:
   stage: deploy
