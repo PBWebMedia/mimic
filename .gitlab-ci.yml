@@ -1,62 +1,35 @@
-image: docker:latest
+image: $CI_REGISTRY/backend/docker/images/php:7.4-deploy
 
 stages:
-  - build-app
+  - build
   - test
   - deploy
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - vendor/
 
 variables:
   DOCKER_DRIVER: overlay2
 
-build-php:
-  stage: build-app
-  image: composer
+build:
+  stage: build
   script:
-    - composer install --ignore-platform-reqs --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader
-  cache:
-    key: $CI_BUILD_REF_NAME
-    paths:
-      - vendor/
+    - composer install -n --prefer-dist -o --no-ansi --no-progress
   artifacts:
-    name: "vendor_${CI_BUILD_REF_NAME}"
-    expire_in: 30 min
-    paths:
-      - vendor/
-      - app/config/parameters.yml
-
-build-php-dev:
-  stage: build-app
-  image: composer
-  script:
-    - composer install --ignore-platform-reqs --no-ansi --no-interaction --no-progress --no-scripts --optimize-autoloader
-  cache:
-    key: $CI_BUILD_REF_NAME
-    paths:
-      - vendor/
-  artifacts:
-    name: "vendor_dev_${CI_BUILD_REF_NAME}"
     expire_in: 30 min
     paths:
       - vendor/
       - app/config/parameters.yml
 
 test:
-  image: $CI_REGISTRY/backend/docker/images/php:7.4-cli
-  stage: test
-  script:
-    - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --colors
-  dependencies:
-    - build-php-dev
-  except:
-    - master
-
-test-coverage:
   image: $CI_REGISTRY/backend/docker/images/php:7.4-pcov-cli
   stage: test
+  dependencies:
+    - build
   script:
     - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --coverage-text --coverage-html coverage
-  dependencies:
-    - build-php-dev
   artifacts:
     paths:
       - coverage/
@@ -65,14 +38,14 @@ test-coverage:
 
 pages:
   stage: deploy
+  dependencies:
+    - test
   script:
     - mv coverage public
-  dependencies:
-    - test-coverage
   artifacts:
+    expire_in: 30 days
     paths:
       - public/
-    expire_in: 30 days
   only:
     - master
   variables:
