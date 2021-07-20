@@ -1,4 +1,4 @@
-image: $CI_REGISTRY/backend/docker/images/php:7.4-deploy
+image: $CI_REGISTRY/backend/docker/images/php:8.0-deploy
 
 stages:
   - build
@@ -24,7 +24,7 @@ build:
       - app/config/parameters.yml
 
 test:
-  image: $CI_REGISTRY/backend/docker/images/php:7.4-pcov-cli
+  image: $CI_REGISTRY/backend/docker/images/php:8.0-pcov-cli
   stage: test
   dependencies:
     - build
