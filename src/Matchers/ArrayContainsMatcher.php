@@ -15,7 +15,7 @@ class ArrayContainsMatcher implements ArgumentMatcherInterface
         $this->associative = $associative;
     }
 
-    public function isMatching($argument): bool
+    public function isMatching(mixed $argument): bool
     {
         if ( ! is_array($argument)) {
             return false;

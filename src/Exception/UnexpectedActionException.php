@@ -39,7 +39,7 @@ class UnexpectedActionException extends MimicException
         return $this->expectedAction;
     }
 
-    private function prepareMessage()
+    private function prepareMessage(): void
     {
         $this->message = sprintf(
             'Unexpected call to method "%s" with the given argument list.' . PHP_EOL . '%s',

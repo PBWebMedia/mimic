@@ -4,6 +4,7 @@ namespace Pbweb\Mimic\Service;
 
 use Pbweb\Mimic\Exception\UnexpectedActionException;
 use Pbweb\Mimic\Model\Action;
+use Throwable;
 
 /**
  * @copyright 2015 PB Web Media B.V.
@@ -22,7 +23,7 @@ abstract class MimicActionHandler
         $this->queue = new EnqueuedActionCollection();
     }
 
-    final public function enqueue(string $method, array $argumentList = [], $response = null, bool $throw = false)
+    final public function enqueue(string $method, array $argumentList = [], mixed $response = null, bool $throw = false): void
     {
         $this->enableQueue();
 
@@ -68,14 +69,9 @@ abstract class MimicActionHandler
      * Should be called by the class using this mimic
      * But should not be overwritten
      *
-     * @param string  $method
-     * @param mixed[] $argumentList
-     * @param mixed   $defaultResponse
-     *
-     * @return mixed
-     * @throws UnexpectedActionException|mixed
+     * @throws UnexpectedActionException|Throwable
      */
-    final protected function handleAction(string $method, array $argumentList = [], $defaultResponse = null)
+    final protected function handleAction(string $method, array $argumentList = [], mixed $defaultResponse = null): mixed
     {
         if ( ! $this->useQueue) {
             return $defaultResponse;

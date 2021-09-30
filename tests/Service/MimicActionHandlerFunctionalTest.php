@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
  */
 class MimicActionHandlerFunctionalTest extends TestCase
 {
-    /** @var SampleMimic */
     private SampleMimic $mimic;
 
     protected function setUp(): void
@@ -19,7 +18,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->mimic = new SampleMimic();
     }
 
-    public function testQueueState()
+    public function testQueueState(): void
     {
         // Default the queue should be disabled
         // If the queue is disabled then all calls will just return null
@@ -40,7 +39,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertTrue($this->mimic->isQueueEnabled());
     }
 
-    public function testQueue()
+    public function testQueue(): void
     {
         $actionOne = new Action(
             'get',
@@ -76,10 +75,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertEquals([$actionOne, $actionTwo], $this->mimic->getQueueContent());
 
         // Invoke the first action
-        $result = call_user_func_array(
-            [$this->mimic, $actionOne->getMethod()],
-            $actionOne->getArgumentList()
-        );
+        $result = $this->mimic->{$actionOne->getMethod()}(...$actionOne->getArgumentList());
         $this->assertEquals($actionOne->getResponse(), $result);
 
         // Now we only have the second action left in the queue
@@ -87,10 +83,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertEquals([$actionTwo], $this->mimic->getQueueContent());
 
         // Invoke the second action
-        $result = call_user_func_array(
-            [$this->mimic, $actionTwo->getMethod()],
-            $actionTwo->getArgumentList()
-        );
+        $result = $this->mimic->{$actionTwo->getMethod()}(...$actionTwo->getArgumentList());
         $this->assertEquals($actionTwo->getResponse(), $result);
 
         // Queue should be empty by now
@@ -98,7 +91,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertEquals([], $this->mimic->getQueueContent());
     }
 
-    public function testInvalidAction()
+    public function testInvalidAction(): void
     {
         $this->expectException(UnexpectedActionException::class);
         $this->expectExceptionMessage('Unexpected call to method "get" with the given argument list.' . PHP_EOL . 'No more calls where expected.');
@@ -107,7 +100,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->mimic->get(1);
     }
 
-    public function testClearTheQueue()
+    public function testClearTheQueue(): void
     {
         $actionOne = new Action(
             'update',
@@ -129,7 +122,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
     /**
      * @dataProvider getMethodsData
      */
-    public function testMethodGoesToQueue(string $method, array $argumentList = [])
+    public function testMethodGoesToQueue(string $method, array $argumentList = []): void
     {
         $expectedResponse = 'response';
         $this->mimic->enqueue($method, $argumentList, $expectedResponse);
@@ -142,7 +135,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertEquals($expectedResponse, $result);
     }
 
-    public function getMethodsData()
+    public function getMethodsData(): array
     {
         return [
             ['get', [100], '{document 100}'],
@@ -150,7 +143,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         ];
     }
 
-    public function testFulFillException()
+    public function testFulFillException(): void
     {
         $exception = new \InvalidArgumentException('Invalid argument');
         $this->mimic->enqueue('get', [1], $exception, true);

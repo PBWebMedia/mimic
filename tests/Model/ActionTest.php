@@ -12,7 +12,7 @@ class ActionTest extends TestCase
     /**
      * @dataProvider getData
      */
-    public function test(string $method, array $argumentList, $response, bool $isThrow = false)
+    public function test(string $method, array $argumentList, mixed $response, bool $isThrow = false): void
     {
         $action = new Action($method, $argumentList, $response, $isThrow);
 

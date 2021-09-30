@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 class EnqueuedActionCollectionFunctionalTest extends TestCase
 {
-    public function testEmptyQueue()
+    public function testEmptyQueue(): void
     {
         $queue = new EnqueuedActionCollection();
 
@@ -22,7 +22,7 @@ class EnqueuedActionCollectionFunctionalTest extends TestCase
         $this->assertFalse($isExpectingThis);
     }
 
-    public function testWithActions()
+    public function testWithActions(): void
     {
         $queue = new EnqueuedActionCollection();
 
@@ -67,7 +67,7 @@ class EnqueuedActionCollectionFunctionalTest extends TestCase
         $this->assertTrue($queue->isEmpty());
     }
 
-    public function testClear()
+    public function testClear(): void
     {
         $queue = new EnqueuedActionCollection();
         $this->assertTrue($queue->isEmpty());
@@ -88,7 +88,7 @@ class EnqueuedActionCollectionFunctionalTest extends TestCase
         $this->assertTrue($queue->isEmpty());
     }
 
-    public function testThrow()
+    public function testThrow(): void
     {
         $exception = new \InvalidArgumentException('Invalid argument');
         $action = new Action('get', [], $exception, true);
@@ -102,7 +102,7 @@ class EnqueuedActionCollectionFunctionalTest extends TestCase
         $queue->fulfill();
     }
 
-    public function testUsesMatchers()
+    public function testUsesMatchers(): void
     {
         // expect ID 1 with any value.
         $action = new Action('update', [1, ArgumentMatchers::any()], 'response');
@@ -126,7 +126,7 @@ class EnqueuedActionCollectionFunctionalTest extends TestCase
         $this->assertFalse($queue->isExpecting('update', [1, 'value', 'one too many']));
     }
 
-    private function assertAction(Action $action, EnqueuedActionCollection $queue)
+    private function assertAction(Action $action, EnqueuedActionCollection $queue): void
     {
         $isExpectingAction = $queue->isExpecting($action->getMethod(), $action->getArgumentList());
         $this->assertTrue($isExpectingAction);

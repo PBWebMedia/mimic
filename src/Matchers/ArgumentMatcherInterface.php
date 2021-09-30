@@ -7,5 +7,5 @@ namespace Pbweb\Mimic\Matchers;
  */
 interface ArgumentMatcherInterface
 {
-    public function isMatching($argument): bool;
+    public function isMatching(mixed $argument): bool;
 }

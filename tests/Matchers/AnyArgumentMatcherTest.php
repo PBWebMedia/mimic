@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class AnyArgumentMatcherTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $matcher = ArgumentMatchers::any();
 

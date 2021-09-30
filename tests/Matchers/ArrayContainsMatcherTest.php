@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class ArrayContainsMatcherTest extends TestCase
 {
-    public function testNonArrays()
+    public function testNonArrays(): void
     {
         $matcher = ArgumentMatchers::arrayContains(['foo' => 'bar']);
 
@@ -20,7 +20,7 @@ class ArrayContainsMatcherTest extends TestCase
         $this->assertFalse($matcher->isMatching(true));
     }
 
-    public function testAssociative()
+    public function testAssociative(): void
     {
         $matcher = ArgumentMatchers::arrayContains(['foo' => 'bar'], true);
 
@@ -31,7 +31,7 @@ class ArrayContainsMatcherTest extends TestCase
         $this->assertFalse($matcher->isMatching(['fiz' => 'bar']));
     }
 
-    public function testNonAssociative()
+    public function testNonAssociative(): void
     {
         $matcher = ArgumentMatchers::arrayContains(['bar'], false);
 

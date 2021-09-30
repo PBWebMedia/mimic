@@ -9,10 +9,10 @@ class Action
 {
     private string $method;
     private array $argumentList;
-    private $response;
+    private mixed $response;
     private bool $throw;
 
-    public function __construct(string $method, array $argumentList = [], $response = null, bool $throw = false)
+    public function __construct(string $method, array $argumentList = [], mixed $response = null, bool $throw = false)
     {
         $this->method = $method;
         $this->argumentList = $argumentList;
@@ -33,10 +33,7 @@ class Action
         return $this->argumentList;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getResponse()
+    public function getResponse(): mixed
     {
         return $this->response;
     }

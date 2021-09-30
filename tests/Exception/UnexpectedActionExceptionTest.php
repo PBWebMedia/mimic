@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 class UnexpectedActionExceptionTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $method = 'get';
         $argumentList = [
@@ -56,10 +56,7 @@ class UnexpectedActionExceptionTest extends TestCase
         $this->assertEquals($expectedMessage, $exception->getMessage());
     }
 
-    /**
-     * @return MockObject|Action
-     */
-    private function createMockAction()
+    private function createMockAction(): MockObject|Action
     {
         return $this->getMockBuilder(Action::class)
             ->disableOriginalConstructor()

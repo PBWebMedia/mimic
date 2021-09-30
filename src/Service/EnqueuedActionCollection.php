@@ -66,10 +66,7 @@ class EnqueuedActionCollection
         return true;
     }
 
-    /**
-     * @return mixed
-     */
-    public function fulfill()
+    public function fulfill(): mixed
     {
         /** @var Action $action */
         $action = $this->queue->dequeue();

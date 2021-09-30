@@ -10,7 +10,7 @@ final class SampleMimic extends MimicActionHandler
     /**
      * @throws \Throwable
      */
-    public function get(int $id)
+    public function get(int $id): mixed
     {
         return $this->handleAction(__FUNCTION__, func_get_args());
     }
@@ -18,7 +18,7 @@ final class SampleMimic extends MimicActionHandler
     /**
      * @throws \Throwable
      */
-    public function update(int $id, string $value)
+    public function update(int $id, string $value): mixed
     {
         return $this->handleAction(__FUNCTION__, func_get_args());
     }
