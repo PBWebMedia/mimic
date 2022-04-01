@@ -1,4 +1,4 @@
-image: $CI_REGISTRY/backend/docker/images/php:8.0-deploy
+image: $CI_REGISTRY/backend/docker/images/php:8.1-deploy
 
 stages:
   - build
@@ -24,10 +24,12 @@ build:
       - app/config/parameters.yml
 
 test:
-  image: $CI_REGISTRY/backend/docker/images/php:8.0-pcov-cli
+  image: $CI_REGISTRY/backend/docker/images/php:8.1
   stage: test
   dependencies:
     - build
+  before_script:
+    - phpenmod pcov
   script:
     - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --coverage-text --coverage-html coverage
   artifacts:
