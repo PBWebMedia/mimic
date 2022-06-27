@@ -31,7 +31,7 @@ test:
   before_script:
     - phpenmod pcov
   script:
-    - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --coverage-text --coverage-html coverage
+    - SYMFONY_DEPRECATIONS_HELPER=disabled vendor/phpunit/phpunit/phpunit -d memory_limit=512M --coverage-text --colors=never --coverage-html coverage
   coverage: '/^\s*Lines:\s*\d+.\d+\%/'
   artifacts:
     paths:
