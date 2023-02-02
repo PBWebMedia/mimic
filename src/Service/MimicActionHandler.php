@@ -6,9 +6,6 @@ use Pbweb\Mimic\Exception\UnexpectedActionException;
 use Pbweb\Mimic\Model\Action;
 use Throwable;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 abstract class MimicActionHandler
 {
     private EnqueuedActionCollection $queue;

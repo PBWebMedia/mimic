@@ -6,9 +6,6 @@ use Pbweb\Mimic\Model\Action;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 class UnexpectedActionExceptionTest extends TestCase
 {
     public function test(): void

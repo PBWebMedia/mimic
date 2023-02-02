@@ -4,9 +4,6 @@ namespace Pbweb\Mimic\Matchers;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @copyright 2018 PB Web Media B.V.
- */
 class AnyArgumentMatcherTest extends TestCase
 {
     public function test(): void

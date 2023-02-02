@@ -4,9 +4,6 @@ namespace Pbweb\Mimic\Model;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 class ActionTest extends TestCase
 {
     /**

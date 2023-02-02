@@ -6,9 +6,6 @@ use Pbweb\Mimic\Matchers\ArgumentMatcherInterface;
 use Pbweb\Mimic\Model\Action;
 use SplQueue;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 class EnqueuedActionCollection
 {
     private SplQueue $queue;

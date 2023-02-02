@@ -6,9 +6,6 @@ use Pbweb\Mimic\Exception\UnexpectedActionException;
 use Pbweb\Mimic\Model\Action;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 class MimicActionHandlerFunctionalTest extends TestCase
 {
     private SampleMimic $mimic;

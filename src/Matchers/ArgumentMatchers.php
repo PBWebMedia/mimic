@@ -2,9 +2,6 @@
 
 namespace Pbweb\Mimic\Matchers;
 
-/**
- * @copyright 2018 PB Web Media B.V.
- */
 class ArgumentMatchers
 {
     /**

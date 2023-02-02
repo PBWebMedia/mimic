@@ -2,9 +2,6 @@
 
 namespace Pbweb\Mimic\Model;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 class Action
 {
     private string $method;

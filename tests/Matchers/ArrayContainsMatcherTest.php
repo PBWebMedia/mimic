@@ -4,9 +4,6 @@ namespace Pbweb\Mimic\Matchers;
 
 use PHPUnit\Framework\TestCase;
 
-/**
- * @copyright 2018 PB Web Media B.V.
- */
 class ArrayContainsMatcherTest extends TestCase
 {
     public function testNonArrays(): void

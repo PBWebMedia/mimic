@@ -4,9 +4,6 @@ namespace Pbweb\Mimic\Exception;
 
 use Pbweb\Mimic\Model\Action;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 class UnexpectedActionException extends MimicException
 {
     private string $receivedMethod;

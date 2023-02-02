@@ -6,9 +6,6 @@ use Pbweb\Mimic\Matchers\ArgumentMatchers;
 use Pbweb\Mimic\Model\Action;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 class EnqueuedActionCollectionFunctionalTest extends TestCase
 {
     public function testEmptyQueue(): void

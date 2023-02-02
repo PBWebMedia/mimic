@@ -2,9 +2,6 @@
 
 namespace Pbweb\Mimic\Service;
 
-/**
- * @copyright 2015 PB Web Media B.V.
- */
 final class SampleMimic extends MimicActionHandler
 {
     /**
