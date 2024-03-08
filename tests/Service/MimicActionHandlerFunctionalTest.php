@@ -4,6 +4,7 @@ namespace Pbweb\Mimic\Service;
 
 use Pbweb\Mimic\Exception\UnexpectedActionException;
 use Pbweb\Mimic\Model\Action;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class MimicActionHandlerFunctionalTest extends TestCase
@@ -116,9 +117,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertEquals([], $this->mimic->getQueueContent());
     }
 
-    /**
-     * @dataProvider getMethodsData
-     */
+    #[DataProvider('getMethodsData')]
     public function testMethodGoesToQueue(string $method, array $argumentList = []): void
     {
         $expectedResponse = 'response';
@@ -132,7 +131,7 @@ class MimicActionHandlerFunctionalTest extends TestCase
         $this->assertEquals($expectedResponse, $result);
     }
 
-    public function getMethodsData(): array
+    public static function getMethodsData(): array
     {
         return [
             ['get', [100], '{document 100}'],

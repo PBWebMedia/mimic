@@ -1,4 +1,4 @@
-image: $CI_REGISTRY/backend/docker/images/php:8.1-deploy
+image: $CI_REGISTRY/backend/docker/images/php:8.3-deploy
 
 stages:
   - build
@@ -24,7 +24,7 @@ build:
       - app/config/parameters.yml
 
 test:
-  image: $CI_REGISTRY/backend/docker/images/php:8.1
+  image: $CI_REGISTRY/backend/docker/images/php:8.3
   stage: test
   dependencies:
     - build

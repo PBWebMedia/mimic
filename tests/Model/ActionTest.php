@@ -2,13 +2,12 @@
 
 namespace Pbweb\Mimic\Model;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ActionTest extends TestCase
 {
-    /**
-     * @dataProvider getData
-     */
+    #[DataProvider('getData')]
     public function test(string $method, array $argumentList, mixed $response, bool $isThrow = false): void
     {
         $action = new Action($method, $argumentList, $response, $isThrow);
@@ -19,7 +18,7 @@ class ActionTest extends TestCase
         $this->assertEquals($isThrow, $action->isThrow());
     }
 
-    public function getData(): array
+    public static function getData(): array
     {
         return [
             [
