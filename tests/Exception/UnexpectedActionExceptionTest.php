@@ -3,7 +3,6 @@
 namespace Pbweb\Mimic\Exception;
 
 use Pbweb\Mimic\Model\Action;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class UnexpectedActionExceptionTest extends TestCase
@@ -20,13 +19,9 @@ class UnexpectedActionExceptionTest extends TestCase
             'i::#1',
             'data-to-insert'
         ];
-        $action = $this->createMockAction();
-        $action->expects($this->once())
-            ->method('getMethod')
-            ->willReturn($actionMethod);
-        $action->expects($this->once())
-            ->method('getArgumentList')
-            ->willReturn($actionArgumentList);
+        $action = $this->createStub(Action::class);
+        $action->method('getMethod')->willReturn($actionMethod);
+        $action->method('getArgumentList')->willReturn($actionArgumentList);
 
         $exception = new UnexpectedActionException($method, $argumentList, $action);
         $this->assertEquals($method, $exception->getReceivedMethod());
@@ -51,12 +46,5 @@ class UnexpectedActionExceptionTest extends TestCase
         $expectedMessage = 'Unexpected call to method "' . $method . '" with the given argument list.' . PHP_EOL
             . 'No more calls where expected.';
         $this->assertEquals($expectedMessage, $exception->getMessage());
-    }
-
-    private function createMockAction(): MockObject|Action
-    {
-        return $this->getMockBuilder(Action::class)
-            ->disableOriginalConstructor()
-            ->getMock();
     }
 }
