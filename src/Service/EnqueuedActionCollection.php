@@ -8,6 +8,7 @@ use SplQueue;
 
 class EnqueuedActionCollection
 {
+    /** @var SplQueue<Action> */
     private SplQueue $queue;
 
     public function __construct()
@@ -20,15 +21,18 @@ class EnqueuedActionCollection
         $this->queue->enqueue($action);
     }
 
+    /**
+     * @param array<mixed> $argumentList
+     */
     public function isExpecting(string $method, array $argumentList = []): bool
     {
         $this->queue->rewind();
 
-        /** @var Action $expectingAction */
-        $expectingAction = $this->queue->current();
-        if ( ! $expectingAction) {
+        if ($this->queue->isEmpty()) {
             return false;
         }
+
+        $expectingAction = $this->queue->current();
 
         if ($expectingAction->getMethod() != $method) {
             return false;
@@ -41,6 +45,10 @@ class EnqueuedActionCollection
         return true;
     }
 
+    /**
+     * @param array<mixed> $expectedArgumentList
+     * @param array<mixed> $actualArgumentList
+     */
     private function isArgumentListMatching(array $expectedArgumentList, array $actualArgumentList): bool
     {
         if (sizeof($expectedArgumentList) != sizeof($actualArgumentList)) {
@@ -65,7 +73,6 @@ class EnqueuedActionCollection
 
     public function fulfill(): mixed
     {
-        /** @var Action $action */
         $action = $this->queue->dequeue();
         $response = $action->getResponse();
 

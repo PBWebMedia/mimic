@@ -5,10 +5,14 @@ namespace Pbweb\Mimic\Model;
 class Action
 {
     private string $method;
+    /** @var array<mixed> */
     private array $argumentList;
     private mixed $response;
     private bool $throw;
 
+    /**
+     * @param array<mixed> $argumentList
+     */
     public function __construct(string $method, array $argumentList = [], mixed $response = null, bool $throw = false)
     {
         $this->method = $method;

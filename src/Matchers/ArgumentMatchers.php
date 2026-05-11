@@ -17,6 +17,8 @@ class ArgumentMatchers
      *
      * If associative is set to TRUE key => value pairs will have to match as a whole, otherwise only values will be
      * checked for.
+     *
+     * @param array<mixed> $expectedContentList
      */
     public static function arrayContains(array $expectedContentList, bool $associative = false): ArgumentMatcherInterface
     {

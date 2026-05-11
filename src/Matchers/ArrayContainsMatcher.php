@@ -4,9 +4,13 @@ namespace Pbweb\Mimic\Matchers;
 
 class ArrayContainsMatcher implements ArgumentMatcherInterface
 {
+    /** @var array<mixed> */
     private array $expectedContentList;
     private bool $associative;
 
+    /**
+     * @param array<mixed> $expectedContentList
+     */
     public function __construct(array $expectedContentList, bool $associative) {
         $this->expectedContentList = $expectedContentList;
         $this->associative = $associative;
@@ -25,6 +29,9 @@ class ArrayContainsMatcher implements ArgumentMatcherInterface
         }
     }
 
+    /**
+     * @param array<mixed> $argument
+     */
     private function matchAssociative(array $argument): bool {
         foreach ($this->expectedContentList as $expectedKey => $expectedValue) {
             if ( ! isset($argument[$expectedKey])) {
@@ -39,6 +46,9 @@ class ArrayContainsMatcher implements ArgumentMatcherInterface
         return true;
     }
 
+    /**
+     * @param array<mixed> $argument
+     */
     private function matchNonAssociative(array $argument): bool {
         foreach ($this->expectedContentList as $expectedValue) {
             if ( ! in_array($expectedValue, $argument)) {

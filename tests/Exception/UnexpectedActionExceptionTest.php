@@ -38,7 +38,7 @@ class UnexpectedActionExceptionTest extends TestCase
         $this->assertEquals($expectedMessage, $exception->getMessage());
     }
 
-    public function testNoAction()
+    public function testNoAction(): void
     {
         $method = 'flush';
         $exception = new UnexpectedActionException($method, []);

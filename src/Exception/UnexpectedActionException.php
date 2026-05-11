@@ -7,10 +7,14 @@ use Pbweb\Mimic\Model\Action;
 class UnexpectedActionException extends MimicException
 {
     private string $receivedMethod;
+    /** @var array<mixed> */
     private array $receivedArgumentList;
     private ?Action $expectedAction;
 
-    public function __construct(string $receivedMethod, array $receivedArgumentList, Action $expectedAction = null)
+    /**
+     * @param array<mixed> $receivedArgumentList
+     */
+    public function __construct(string $receivedMethod, array $receivedArgumentList, ?Action $expectedAction = null)
     {
         parent::__construct();
 
@@ -26,6 +30,9 @@ class UnexpectedActionException extends MimicException
         return $this->receivedMethod;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getReceivedArgumentList(): array
     {
         return $this->receivedArgumentList;

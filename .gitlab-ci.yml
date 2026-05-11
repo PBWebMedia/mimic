@@ -37,6 +37,14 @@ test:
     paths:
       - coverage/
 
+phpstan:
+  image: $CI_REGISTRY/backend/docker/images/php:8.5
+  stage: test
+  dependencies:
+    - build
+  script:
+    - vendor/bin/phpstan analyse --no-progress
+
 pages:
   stage: deploy
   dependencies:

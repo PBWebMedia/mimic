@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class ActionTest extends TestCase
 {
+    /**
+     * @param array<mixed> $argumentList
+     */
     #[DataProvider('getData')]
     public function test(string $method, array $argumentList, mixed $response, bool $isThrow = false): void
     {
@@ -18,6 +21,9 @@ class ActionTest extends TestCase
         $this->assertEquals($isThrow, $action->isThrow());
     }
 
+    /**
+     * @return array<array<mixed>>
+     */
     public static function getData(): array
     {
         return [

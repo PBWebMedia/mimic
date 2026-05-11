@@ -4,7 +4,7 @@ namespace Pbweb\Mimic\Matchers;
 
 class AnyArgumentMatcher implements ArgumentMatcherInterface
 {
-    public function isMatching($argument): bool
+    public function isMatching(mixed $argument): bool
     {
         return true;
     }
